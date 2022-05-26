@@ -1,10 +1,8 @@
 #Importar la biblioteca de flask
 from flask import Flask, redirect, render_template, request, url_for, flash
 
-
 #Objeto para inicilizar la aplicacion
-#1. nombre por defecto
-#2. ruta donde esta los templates o nombre de la carpeta
+#1. ruta donde esta los templates o nombre de la carpeta
 app = Flask(__name__, template_folder='template')
 
 #Clave secreta de la aplicacion
