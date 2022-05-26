@@ -5,22 +5,17 @@ from flask import Flask, redirect, render_template, request, url_for, flash
 #1. ruta donde esta los templates o nombre de la carpeta
 app = Flask(__name__, template_folder='template')
 
-#Clave secreta de la aplicacion
-app.secret_key = 'ESPE'
-
 
 #Arreglo para almacenar las tareas
 lista_tareas = []
 
-#Controlador de la ruta por defecto
-# Ingreso de datos por formulario
-# Mostras las tareas pendientes
+#ingreso de todos los datos para el ingreso de las tareas
 @app.route('/')
 def index():
     return render_template('index.html', lista_tareas=lista_tareas)
 
 
-#Controlador para enviar los datos
+#Controlador para añadir datos
 @app.route('/enviar', methods=['POST'])
 def enviar():
     if request.method == 'POST':
@@ -42,7 +37,7 @@ def enviar():
 
             return redirect(url_for('index'))
 
-#Controlador de la ruta para borrar
+#Controlador de eliminar y de alertar en caso de no llenar todos los campos
 @app.route('/borrar', methods=['POST'])
 def borrar():
     if request.method == 'POST':
@@ -58,6 +53,6 @@ def borrar():
             return redirect(url_for('index'))
 
 
-#Metodo para correr la aplicacion
+#Metodo para ejecutar la aplicación 
 if __name__ == '__main__':
     app.run(debug=True)
