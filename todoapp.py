@@ -1,21 +1,21 @@
 #Importar la biblioteca de flask
 from flask import Flask, redirect, render_template, request, url_for, flash
 
-#Objeto para inicilizar la aplicacion
-#1. ruta donde esta los templates o nombre de la carpeta
 app = Flask(__name__, template_folder='template')
 
+app.secret_key = 'ESPE'
 
-#Arreglo para almacenar las tareas
+
+#Arreglo guardar todos los datos
 lista_tareas = []
 
-#ingreso de todos los datos para el ingreso de las tareas
+#Controlador 
 @app.route('/')
 def index():
     return render_template('index.html', lista_tareas=lista_tareas)
 
 
-#Controlador para añadir datos
+#Controlador de todos los datos 
 @app.route('/enviar', methods=['POST'])
 def enviar():
     if request.method == 'POST':
@@ -37,7 +37,7 @@ def enviar():
 
             return redirect(url_for('index'))
 
-#Controlador de eliminar y de alertar en caso de no llenar todos los campos
+#Controlador para eliminar la tarea
 @app.route('/borrar', methods=['POST'])
 def borrar():
     if request.method == 'POST':
@@ -53,6 +53,6 @@ def borrar():
             return redirect(url_for('index'))
 
 
-#Metodo para ejecutar la aplicación 
+#Metodo para correr la aplicacion
 if __name__ == '__main__':
     app.run(debug=True)
