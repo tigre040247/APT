@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Importar librerias booststrap  -->
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="espe">
+    <!-- Importar JavaScript -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2"
+        crossorigin="ESPE"></script>
+    <title>TAREAS</title>
+</head>
+
+<body class="col-18 col-m-6 col-lg-12", style="text-align:center">
+
+    <h1 style="text-align:center " class="display-1", > TAREAS DIARIAS</h1>
+
+    <!--Parte 1: Primer controlador ver la lista de tareas pendientes-->
+    <center> 
+    <form method="post" action="{{url_for('enviar')}}">
+       
+        <div class="container-fluid" style=" width: 600px" >
+            <label style="height: 25px; width: 100px" > MIS TAREAS </label>
+            <input type="text" class="container "  placeholder="Llenar el campo"
+                name="t_descripcion">
+        </div>
+
+        <div class="container-fluid" style=" width: 600px">
+            <label>RESPONSABLE </label>
+            <input type="text" class="container" placeholder="Llenar el campo"
+                name="t_responsable">
+        </div>
+
+         <!--entrada de cuadro de texto utilizada para capturar el correo electrónico-->
+        <div class="container-fluid" style=" width: 600px">
+            <label>CORREO ELECTRÓNICO</label>
+            <input type="email" class="container" placeholder="Llenar el campo" name="t_correo">
+        </div>
+
+         <!--Cuadro para indicar la dificultad-->
+        <div class="container-fluid">
+            <label >DIFICULTAD</label>
+            <select class="container" style=" width: 200px" name="t_prioridad">
+                <option value="BAJA", class="p-2 bg-warning text-white">BAJA</option>
+                <option value="MEDIA", class="p-2 bg-primary text-white">MEDIA</option>
+                <option value="ALTA", class="p-2 bg-danger text-white">ALTA</option>
+            </select>
+        </div>
+        <button type="submit" class="btn btn-success">REGISTRAR</button>
+    </form>
+    </center>
+    <!--Controlador 1.1 Tabla para mostrar las tareas-->
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="tar">RESPONSABLE</th>
+                <th scope="tar">DESCRIPCIÓN DE LA TAREA</th>
+                <th scope="tar">CORREO ELECTRÓNICO</th>
+                <th scope="tar">DIFICULTAD</th> 
+                <th scope="tar">ELIMINAR</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!--Ciclo for para acceder a la lista de tareas-->
+            {% for tarea in lista_tareas %}
+
+            <tr>
+
+                <!--Mostrar la descripcion de la tarea-->
+                <th>{{tarea.t_descripcion}}</th>
+                 <!--Mostrar la descripcion de la tarea-->
+                 <th>{{tarea.t_responsable}}</th>
+                <!--Mostrar correo de la tarea-->
+                <th>{{tarea.t_correo}}</th>
+                <!--Mostrar prioridad de la tarea-->
+                <th>{{tarea.t_prioridad}}</th>
+                <th><button oneclick="limpiar()">limpiar</button></th>
+
+
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <form action="{{url_for('borrar')}}" method="post" class="card-body">
+
+        <button type="submit" class="btn btn-danger mb-2">ELIMINAR TAREA</button>
+
+    </form>
+
+    {% for message in get_flashed_messages() %}
+    <h2 class="text-center text-black">{{ message }}</h2>
+
+    {% endfor %}
+
+</body>
+
+</html>
